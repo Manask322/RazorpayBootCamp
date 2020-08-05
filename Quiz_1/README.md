@@ -1,4 +1,3 @@
-# RazorpayBootCamp
+## Steps to run the program
 
-## Go
-* [Quiz 1](https://github.com/Manask322/RazorpayBootCamp/tree/master/Quiz_1) contains Solution to Quiz-1
+* go run main.go -file=[file name] -time=[time in seconds] -shuffle=[shuffle the problems (Boolean)]
