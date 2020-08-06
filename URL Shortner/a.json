@@ -1,0 +1,10 @@
+[
+    { 
+        "path" : "/razorpay" , 
+        "url": "https://razorpay.com"
+    },
+    { 
+        "path": "/razorpay/docs/", 
+        "url": "https://razorpay.com/docs/"
+    }
+]
