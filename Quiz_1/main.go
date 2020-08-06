@@ -37,7 +37,7 @@ func main() {
 
 	// Flags for the program
 	filename := flag.String("file", "problems.csv", "name of the csv file containing problems")
-	timerTime := flag.Int("time", 3, "alloted time to complete the Quiz")
+	timerTime := flag.Int("time", 30, "alloted time to complete the Quiz")
 	shuffle := flag.Bool("shuffle", false, "shuffle the problems, false by default")
 	flag.Parse()
 
