@@ -13,7 +13,7 @@ import (
 var db *bolt.DB
 var err error
 
-// ConnetToDatabase is
+// ConnetToDatabase is used to Connect to Database
 func ConnetToDatabase(databaseName string) error {
 	db, err = bolt.Open("my.db", 0600, &bolt.Options{Timeout: 1 * time.Second, ReadOnly: false})
 	if err != nil {
@@ -21,17 +21,11 @@ func ConnetToDatabase(databaseName string) error {
 	}
 	return db.Update(func(tx *bolt.Tx) error {
 		_, err := tx.CreateBucketIfNotExists([]byte("tasks"))
-		// err := tx.DeleteBucket([]byte("tasks"))
 		return err
 	})
 }
 
-//GetDB is
-func GetDB() *bolt.DB {
-	return db
-}
-
-// CreateRecord is
+// CreateRecord is create new Task
 func CreateRecord(task string) error {
 	err := db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("tasks"))
@@ -49,7 +43,7 @@ func CreateRecord(task string) error {
 	return nil
 }
 
-//DeleteRecord is
+//DeleteRecord is delete a Record
 func DeleteRecord(ID int) error {
 	err := db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("tasks"))
@@ -65,13 +59,13 @@ func DeleteRecord(ID int) error {
 	return nil
 }
 
-//Task is
+//Task is the struct used to store task in batabase
 type Task struct {
 	Task string `json:"task"`
 	Done int    `json:"done"`
 }
 
-//ListAllTasks is
+//ListAllTasks is lists all the incomplete tasks
 func ListAllTasks() error {
 	err := db.View(func(tx *bolt.Tx) error {
 		// Assume bucket exists and has keys
@@ -95,7 +89,7 @@ func ListAllTasks() error {
 	return nil
 }
 
-//MarkAsDone is
+//MarkAsDone is marks task as done
 func MarkAsDone(ID int) error {
 	err := db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("tasks"))
@@ -132,7 +126,7 @@ func MarkAsDone(ID int) error {
 	return nil
 }
 
-//CompletedTasks is
+//CompletedTasks is used to list all the completed tasks.
 func CompletedTasks() error {
 	err := db.View(func(tx *bolt.Tx) error {
 		// Assume bucket exists and has keys
@@ -156,6 +150,7 @@ func CompletedTasks() error {
 	return nil
 }
 
+//Helper function to convert int to bytes
 func itob(v int) []byte {
 	b := make([]byte, 8)
 	binary.BigEndian.PutUint64(b, uint64(v))
